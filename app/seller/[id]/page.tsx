@@ -1,7 +1,11 @@
-import Link from 'next/link';
-import { getSellerById, getProductsBySeller, getSellerRatings } from '@/lib/api';
-import RatingStars from '@/components/RatingStars';
-import ProductCard from '@/components/ProductCard';
+import Link from "next/link";
+import {
+  getSellerById,
+  getProductsBySeller,
+  getSellerRatings,
+} from "@/lib/api";
+import RatingStars from "@/components/RatingStars";
+import ProductCard from "@/components/ProductCard";
 
 interface SellerPageProps {
   params: { id: string };
@@ -14,7 +18,8 @@ export default async function SellerDetailPage({ params }: SellerPageProps) {
   const products = await getProductsBySeller(seller.id);
   const sellerRatings = await getSellerRatings(seller.id);
   const averageRating = sellerRatings.length
-    ? sellerRatings.reduce((sum, rating) => sum + rating.score, 0) / sellerRatings.length
+    ? sellerRatings.reduce((sum, rating) => sum + rating.score, 0) /
+      sellerRatings.length
     : 0;
 
   return (
@@ -30,7 +35,10 @@ export default async function SellerDetailPage({ params }: SellerPageProps) {
         </div>
         <div className="seller-summary">
           <p>{seller.location}</p>
-          <RatingStars rating={averageRating} label={`${averageRating.toFixed(1)} average seller rating`} />
+          <RatingStars
+            rating={averageRating}
+            label={`${averageRating.toFixed(1)} average seller rating`}
+          />
           <p className="muted-text">{sellerRatings.length} ratings</p>
         </div>
       </section>
@@ -48,7 +56,6 @@ export default async function SellerDetailPage({ params }: SellerPageProps) {
               product={product}
               isFocused={false}
               isScrolling={true}
-              hasScrolled={false}
               cardRef={() => null}
             />
           ))}

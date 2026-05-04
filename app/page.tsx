@@ -7,7 +7,7 @@ export default async function HomePage() {
 
   return (
     <main className="page-shell">
-      <section className="hero-panel">
+      {/* <section className="hero-panel">
         <div>
           <p className="eyebrow">Nearby discounts, curated daily</p>
           <h1>Swipe the cheapest useful products around you.</h1>
@@ -16,7 +16,7 @@ export default async function HomePage() {
             responsive Instagram-style marketplace.
           </p>
         </div>
-      </section>
+      </section> */}
       <HomeFeed products={products} />
     </main>
   );

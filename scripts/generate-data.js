@@ -168,15 +168,23 @@ states.forEach((state) => {
     };
     const bgColor = categoryColors[category] || 'd1d5db';
     const textColor = '1f2937';
-    const imageUrl = `https://fakeimg.pl/900x700/${bgColor.slice(1)}/${textColor.slice(1)}?text=${encodeURIComponent(itemName)}&font=roboto`;
+    const images = [
+      `https://fakeimg.pl/900x700/${bgColor.slice(1)}/${textColor.slice(1)}?text=${encodeURIComponent(itemName)}&font=roboto&font_size=40`,
+      `https://fakeimg.pl/900x700/${bgColor.slice(1)}/${textColor.slice(1)}?text=${encodeURIComponent(itemName + ' view 2')}&font=roboto&font_size=36`,
+      `https://fakeimg.pl/900x700/${bgColor.slice(1)}/${textColor.slice(1)}?text=${encodeURIComponent(itemName + ' view 3')}&font=roboto&font_size=32`,
+    ];
+    const imageUrl = images[0];
     const videoUrl = videoLibrary[category] || videoLibrary.Home;
+    const videoStory = `A brief 5-second product story for ${itemName} in ${state.city}, highlighting its condition, value, and nearby availability.`;
 
     const product = {
       id: `pr-${state.code}-${String(i).padStart(3, '0')}`,
       title: `${itemName} for sale in ${state.city}`,
       description,
       imageUrl,
+      images,
       videoUrl,
+      videoStory,
       currentPrice,
       previousPrice,
       discountPercentage: condition === 'New' ? Math.max(discountPercentage, 10) : discountPercentage,

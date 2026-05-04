@@ -1,13 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
-const categories = ['Electronics', 'Home', 'Fashion', 'Vehicles', 'Food', 'Miscellaneous'];
-const conditions = ['New', 'Second-hand', 'Used', 'Refurbished'];
+const categories = [
+  "Electronics",
+  "Home",
+  "Fashion",
+  "Vehicles",
+  "Food",
+  "Miscellaneous",
+];
+const conditions = ["New", "Second-hand", "Used", "Refurbished"];
 
 export default function PostProductPage() {
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   return (
     <main className="page-shell form-shell">
@@ -19,13 +26,22 @@ export default function PostProductPage() {
           <p className="eyebrow">Seller posting</p>
           <h1>Post your product in minutes</h1>
           <p className="hero-copy">
-            Add product details, pricing, and images. This screen is ready for a real API later.
+            Add product details, pricing, and images. This screen is ready for a
+            real API later.
           </p>
         </div>
-        <form className="marketplace-form" onSubmit={(event) => event.preventDefault()}>
+        <form
+          className="marketplace-form"
+          onSubmit={(event) => event.preventDefault()}
+        >
           <label className="field-label">
             Product title
-            <input type="text" placeholder="Handmade chair with cushion" aria-label="Product title" required />
+            <input
+              type="text"
+              placeholder="Handmade chair with cushion"
+              aria-label="Product title"
+              required
+            />
           </label>
           <label className="field-label">
             Category
@@ -52,7 +68,12 @@ export default function PostProductPage() {
           <div className="field-row">
             <label className="field-label">
               Current price (₹)
-              <input type="number" min="1" aria-label="Current price" required />
+              <input
+                type="number"
+                min="1"
+                aria-label="Current price"
+                required
+              />
             </label>
             <label className="field-label">
               Previous price (₹)
@@ -61,17 +82,40 @@ export default function PostProductPage() {
           </div>
           <label className="field-label">
             Location
-            <input type="text" placeholder="Bangalore, Koramangala" aria-label="Location" required />
+            <input
+              type="text"
+              placeholder="Bangalore, Koramangala"
+              aria-label="Location"
+              required
+            />
           </label>
           <label className="field-label">
             Description
-            <textarea placeholder="Describe the product condition, size, and nearby pickup option." aria-label="Description" rows={5} required />
+            <textarea
+              placeholder="Describe the product condition, size, and nearby pickup option."
+              aria-label="Description"
+              rows={5}
+              required
+            />
           </label>
           <label className="field-label">
             Image URL
-            <input type="url" placeholder="https://example.com/product.jpg" aria-label="Image URL" required />
+            <input
+              type="url"
+              placeholder="https://example.com/product.jpg"
+              aria-label="Image URL"
+              required
+            />
           </label>
-          <button className="primary-button" type="submit" onClick={() => setStatus('Preview mode only. Data creation coming soon.')}>Save draft</button>
+          <button
+            className="primary-button"
+            type="submit"
+            onClick={() =>
+              setStatus("Preview mode only. Data creation coming soon.")
+            }
+          >
+            Save draft
+          </button>
           {status ? <p className="status-text">{status}</p> : null}
         </form>
       </section>

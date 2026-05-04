@@ -1,15 +1,27 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getProductById, getSellerById, getAllProductRatings } from "@/lib/api";
+import {
+  getAllProducts,
+  getAllProductRatings,
+  getProductById,
+  getSellerById,
+} from "@/lib/api";
+import ImageCarousel from "@/components/ImageCarousel";
 import RatingStars from "@/components/RatingStars";
 import SellerBadge from "@/components/SellerBadge";
 
 interface ProductPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
+}
+
+export async function generateStaticParams() {
+  const products = await getAllProducts();
+  return products.map((product) => ({ id: product.id }));
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
-  const product = await getProductById(params.id);
+  const { id } = await params;
+  const product = await getProductById(id);
   if (!product) {
     return notFound();
   }
@@ -24,14 +36,18 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <main className="page-shell detail-shell">
       <Link href="/" className="back-link">
-        ← Back to feed
+        Back to feed
       </Link>
       <section className="detail-grid">
         <div className="detail-image-card">
-          <img
-            src={product.imageUrl}
+          <ImageCarousel
+            images={
+              product.images && product.images.length
+                ? product.images
+                : [product.imageUrl]
+            }
             alt={product.title}
-            className="detail-image"
+            className="detail-carousel"
           />
           <div className="price-badge">{product.discountPercentage}% OFF</div>
         </div>
@@ -41,8 +57,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <div className="detail-meta">
             <div>
               <p className="meta-label">Price</p>
-              <p className="price-large">₹{product.currentPrice}</p>
-              <p className="muted-text">Was ₹{product.previousPrice}</p>
+              <p className="price-large">Rs. {product.currentPrice}</p>
+              <p className="muted-text">Was Rs. {product.previousPrice}</p>
             </div>
             <div>
               <p className="meta-label">Product rating</p>

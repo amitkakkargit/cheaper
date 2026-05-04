@@ -3,6 +3,7 @@
 A modern Node.js marketplace web app built with Next.js and TypeScript. This prototype uses hardcoded JSON data to simulate API responses and supports a responsive Instagram-style feed.
 
 ## Stack
+
 - Next.js (app router)
 - TypeScript
 - React
@@ -10,6 +11,7 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 - Jest + React Testing Library for unit and integration tests
 
 ## Core features
+
 - Home feed with search and location filters
 - Instagram-style product card layout
 - Product detail page
@@ -20,6 +22,7 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 - Modular components, services, and types
 
 ## Setup
+
 1. Install dependencies:
    ```bash
    npm install
@@ -31,6 +34,7 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 3. Open `http://localhost:3000`
 
 ## Test commands
+
 - Run all tests:
   ```bash
   npm test
@@ -41,6 +45,7 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
   ```
 
 ## Project structure
+
 - `app/` - Next.js route definitions and pages
 - `components/` - UI components and layout modules
 - `lib/` - mock API services and shared types
@@ -49,6 +54,7 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 - `scripts/generate-data.js` - data generator for reproducible mock product and seller sets
 
 ## Replacing the mock JSON with real APIs
+
 1. Replace `lib/api.ts` data imports with fetch calls to your backend endpoints.
 2. Keep the service method signatures (`getAllProducts`, `getProductById`, `searchProducts`, etc.) the same so UI components can stay unchanged.
 3. Add a backend or API route layer as needed, then update the service methods to deserialize the API response.

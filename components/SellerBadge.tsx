@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import type { Seller } from '@/lib/types';
-import RatingStars from './RatingStars';
+import Link from "next/link";
+import type { Seller } from "@/lib/types";
+import RatingStars from "./RatingStars";
 
 interface SellerBadgeProps {
   seller: Seller;
@@ -10,7 +10,11 @@ export default function SellerBadge({ seller }: SellerBadgeProps) {
   return (
     <div className="info-card">
       <div className="seller-card-row">
-        <img src={seller.avatarUrl} alt={seller.name} className="seller-avatar" />
+        <img
+          src={seller.avatarUrl}
+          alt={seller.name}
+          className="seller-avatar"
+        />
         <div>
           <p className="eyebrow">Seller</p>
           <h3>{seller.name}</h3>
