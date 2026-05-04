@@ -816,9 +816,6 @@ button {
   .search-panel {
     gap: 12px;
     border-radius: 18px;
-    position: sticky;
-    top: 0;
-    z-index: 20;
   }
   .search-fields {
     gap: 10px;
