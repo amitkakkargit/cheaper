@@ -1,9 +1,8 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { getProductById, getSellerById, getAllProductRatings } from '@/lib/api';
-import RatingStars from '@/components/RatingStars';
-import SellerBadge from '@/components/SellerBadge';
-import ImageCarousel from '@/components/ImageCarousel';
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { getProductById, getSellerById, getAllProductRatings } from "@/lib/api";
+import RatingStars from "@/components/RatingStars";
+import SellerBadge from "@/components/SellerBadge";
 
 interface ProductPageProps {
   params: { id: string };
@@ -18,7 +17,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const seller = await getSellerById(product.sellerId);
   const productRatings = await getAllProductRatings(product.id);
   const averageRating = productRatings.length
-    ? productRatings.reduce((sum, rating) => sum + rating.score, 0) / productRatings.length
+    ? productRatings.reduce((sum, rating) => sum + rating.score, 0) /
+      productRatings.length
     : 0;
 
   return (
@@ -28,8 +28,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </Link>
       <section className="detail-grid">
         <div className="detail-image-card">
-          <ImageCarousel
-            images={product.imageUrls}
+          <img
+            src={product.imageUrl}
             alt={product.title}
             className="detail-image"
           />
@@ -46,7 +46,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
             <div>
               <p className="meta-label">Product rating</p>
-              <RatingStars rating={averageRating} label={`${averageRating.toFixed(1)} out of 5`} />
+              <RatingStars
+                rating={averageRating}
+                label={`${averageRating.toFixed(1)} out of 5`}
+              />
               <p className="muted-text">{productRatings.length} reviews</p>
             </div>
           </div>
@@ -58,13 +61,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <div className="info-card">
           <h2>Why this deal matters</h2>
           <p>
-            Cheaper Marketplace is built for nearby shoppers who want quality products at the
-            lowest available price. Find useful items fast and message sellers with confidence.
+            Cheaper Marketplace is built for nearby shoppers who want quality
+            products at the lowest available price. Find useful items fast and
+            message sellers with confidence.
           </p>
         </div>
         <div className="info-card">
           <h2>Seller notes</h2>
-          <p>{seller?.bio || 'Trusted local seller with quick replies.'}</p>
+          <p>{seller?.bio || "Trusted local seller with quick replies."}</p>
         </div>
       </section>
     </main>

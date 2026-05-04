@@ -4,7 +4,6 @@ import { memo, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { ProductWithSeller } from "@/lib/types";
 import RatingStars from "./RatingStars";
-import ImageCarousel from "./ImageCarousel";
 
 interface ProductCardProps {
   product: ProductWithSeller;
@@ -14,6 +13,9 @@ interface ProductCardProps {
   cardRef: (node: HTMLElement | null) => void;
 }
 
+const genericFallbackImage =
+  "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22900%22%20height%3D%22700%22%20viewBox%3D%220%200%20900%20700%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%22900%22%20height%3D%22700%22%20fill%3D%22%23f8fbff%22/%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23475b69%22%20font-family%3D%22Inter,%20system-ui,%20sans-serif%22%20font-size%3D%2240%22%3EImage%20unavailable%3C/text%3E%3C/svg%3E";
+
 function ProductCard({
   product,
   isFocused,
@@ -21,7 +23,10 @@ function ProductCard({
   hasScrolled,
   cardRef,
 }: ProductCardProps) {
-  const [allImagesFailed, setAllImagesFailed] = useState(false);
+  const [imageSrc, setImageSrc] = useState(
+    product.imageUrl || genericFallbackImage,
+  );
+  const [hasTriedFallback, setHasTriedFallback] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playbackTimerRef = useRef<number | null>(null);
@@ -70,10 +75,6 @@ function ProductCard({
     };
   }, [isFocused, isScrolling, hasScrolled, product.videoUrl]);
 
-  if (allImagesFailed) {
-    return null;
-  }
-
   return (
     <article
       className="product-card"
@@ -81,11 +82,22 @@ function ProductCard({
       data-product-id={product.id}
     >
       <div className="product-image-wrap">
-        <ImageCarousel
-          images={product.imageUrls}
-          alt={product.title}
-          onAllImagesFailed={() => setAllImagesFailed(true)}
+        <img
           className="product-image"
+          src={imageSrc}
+          alt={product.title}
+          loading="eager"
+          decoding="async"
+          onError={() => {
+            if (!hasTriedFallback) {
+              setImageSrc(
+                `https://picsum.photos/seed/${encodeURIComponent(product.id)}/900/700`,
+              );
+              setHasTriedFallback(true);
+            } else {
+              setImageSrc(genericFallbackImage);
+            }
+          }}
         />
         {product.videoUrl ? (
           <>
@@ -97,7 +109,7 @@ function ProductCard({
               muted
               loop
               preload="metadata"
-              poster={product.imageUrls[0]}
+              poster={imageSrc}
             />
             <div
               className={`video-preview-indicator ${isPlaying ? "visible" : ""}`}

@@ -4,15 +4,15 @@ export interface Product {
   id: string;
   title: string;
   description: string;
-  imageUrls: string[];
+  imageUrl: string;
+  images: string[];
   videoUrl: string;
+  videoStory: string;
   currentPrice: number;
   previousPrice: number;
   discountPercentage: number;
   condition: ConditionType;
   location: string;
-  latitude: number;
-  longitude: number;
   category: string;
   sellerId: string;
 }

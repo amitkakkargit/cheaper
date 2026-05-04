@@ -3,7 +3,7 @@ import { getAllProducts } from "@/lib/api";
 import HomeFeed from "@/components/HomeFeed";
 
 export default async function HomePage() {
-  const products = await getAllProducts(50);
+  const products = await getAllProducts();
 
   return (
     <main className="page-shell">

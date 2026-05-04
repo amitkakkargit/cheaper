@@ -11,27 +11,6 @@ const delay = () => new Promise((resolve) => setTimeout(resolve, 25));
 const computeAverage = (ratings: Rating[]) =>
   ratings.length ? ratings.reduce((sum, rating) => sum + rating.score, 0) / ratings.length : 0;
 
-const ensureImageUrls = (product: Product) => {
-  const images = Array.isArray(product.imageUrls) ? product.imageUrls.slice() : [];
-  if (images.length >= 3) {
-    return images;
-  }
-
-  const label = encodeURIComponent(
-    product.title
-      .split(' ')
-      .slice(0, 2)
-      .join(' '),
-  );
-  const extraSeeds = [
-    `https://fakeimg.pl/900x700/3e8ff/f2937?text=${label}&font=roboto`,
-    `https://fakeimg.pl/900x700/1fae5/f2937?text=${label}&font=roboto`,
-    `https://fakeimg.pl/900x700/ffafe/f2937?text=${label}&font=roboto`,
-  ];
-
-  return Array.from(new Set([...images, ...extraSeeds])).slice(0, 3);
-};
-
 const enrichProduct = (product: Product): ProductWithSeller => {
   const seller = sellersData.find((item) => item.id === product.sellerId);
   const productRatingsForProduct = productRatings.filter((rating) => rating.targetId === product.id);
@@ -39,7 +18,6 @@ const enrichProduct = (product: Product): ProductWithSeller => {
 
   return {
     ...product,
-    imageUrls: ensureImageUrls(product),
     sellerName: seller?.name || 'Local seller',
     sellerLocation: seller?.location || product.location,
     sellerAvatarUrl: seller?.avatarUrl || '',
@@ -50,10 +28,9 @@ const enrichProduct = (product: Product): ProductWithSeller => {
   };
 };
 
-export async function getAllProducts(limit?: number): Promise<ProductWithSeller[]> {
+export async function getAllProducts(): Promise<ProductWithSeller[]> {
   await delay();
-  const limitedProducts = limit ? productsData.slice(0, limit) : productsData;
-  return limitedProducts.map(enrichProduct);
+  return productsData.map(enrichProduct);
 }
 
 export async function getProductById(id: string): Promise<ProductWithSeller | null> {
@@ -79,7 +56,7 @@ export async function getSellerRatings(sellerId: string): Promise<Rating[]> {
 
 export async function getAllProductRatings(productId: string): Promise<Rating[]> {
   await delay();
-  return productRatings.filter((rating) => rating.targetId === productId).slice(0, 10);
+  return productRatings.filter((rating) => rating.targetId === productId);
 }
 
 export async function searchProducts(query: string, location: string): Promise<ProductWithSeller[]> {
