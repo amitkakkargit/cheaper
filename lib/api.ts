@@ -120,7 +120,7 @@ const getProductArtwork = (product: Product, index: number) => {
   `;
 };
 
-const buildInlineProductImage = (product: Product, index: number) => {
+const buildProductImageSvg = (product: Product, index: number) => {
   const theme = productImageThemes[index % productImageThemes.length];
   const title = escapeSvgText(
     product.title.replace(/\s+for sale.+$/i, "").trim(),
@@ -141,26 +141,36 @@ const buildInlineProductImage = (product: Product, index: number) => {
       <circle cx="110" cy="626" r="190" fill="rgba(255,255,255,0.12)"/>
       <rect x="70" y="78" width="760" height="544" rx="48" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.26)" stroke-width="2"/>
       ${getProductArtwork(product, index)}
-      <rect x="82" y="88" width="214" height="50" rx="25" fill="rgba(255,255,255,0.92)"/>
-      <text x="108" y="122" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">Image ${index + 1}</text>
       <text x="86" y="636" fill="${theme.accent}" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">${title}</text>
       <text x="86" y="674" fill="${theme.accent}" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">${subtitle}</text>
     </svg>
   `;
 
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+  return svg;
 };
 
 const buildProductImages = (product: Product) => {
   const providedImages = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
   const generatedImages = [0, 1, 2].map((index) =>
-    buildInlineProductImage(product, index),
+    `/api/product-image/${encodeURIComponent(product.id)}/${index}`,
   );
 
   return Array.from(
     new Set([...generatedImages, ...providedImages, product.imageUrl].filter(Boolean)),
   ).slice(0, 6);
 };
+
+export function getGeneratedProductImageSvg(
+  productId: string,
+  imageIndex: number,
+) {
+  const product = productsData.find((item) => item.id === productId);
+  if (!product || imageIndex < 0 || imageIndex > 2) {
+    return null;
+  }
+
+  return buildProductImageSvg(product, imageIndex);
+}
 
 const enrichProduct = (product: Product): ProductWithSeller => {
   const seller = sellersData.find((item) => item.id === product.sellerId);

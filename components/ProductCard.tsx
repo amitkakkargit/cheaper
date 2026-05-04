@@ -10,7 +10,7 @@ interface ProductCardProps {
   product: ProductWithSeller;
   isFocused: boolean;
   isScrolling: boolean;
-  cardRef: (node: HTMLElement | null) => void;
+  cardRef?: (node: HTMLElement | null) => void;
 }
 
 function ProductCard({
@@ -73,7 +73,7 @@ function ProductCard({
   return (
     <article
       className="product-card"
-      ref={cardRef}
+      ref={cardRef ?? null}
       data-product-id={product.id}
     >
       <div className="product-image-wrap">

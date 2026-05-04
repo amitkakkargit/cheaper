@@ -682,6 +682,13 @@ button {
   font-weight: 700;
 }
 
+.product-badge.discount-pill {
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.24);
+}
+
 .product-link,
 .product-link:focus-visible,
 .product-link:hover {

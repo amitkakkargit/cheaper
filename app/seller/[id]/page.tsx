@@ -8,11 +8,12 @@ import RatingStars from "@/components/RatingStars";
 import ProductCard from "@/components/ProductCard";
 
 interface SellerPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function SellerDetailPage({ params }: SellerPageProps) {
-  const seller = await getSellerById(params.id);
+  const { id } = await params;
+  const seller = await getSellerById(id);
   if (!seller) return <div className="page-shell">Seller not found</div>;
 
   const products = await getProductsBySeller(seller.id);
@@ -25,7 +26,7 @@ export default async function SellerDetailPage({ params }: SellerPageProps) {
   return (
     <main className="page-shell detail-shell">
       <Link href="/" className="back-link">
-        ← Back to feed
+        Back to feed
       </Link>
       <section className="seller-hero">
         <div>
@@ -56,7 +57,6 @@ export default async function SellerDetailPage({ params }: SellerPageProps) {
               product={product}
               isFocused={false}
               isScrolling={true}
-              cardRef={() => null}
             />
           ))}
         </div>
