@@ -82,7 +82,7 @@ function ProductCard({
           alt={product.title}
           onAllImagesFailed={() => setIsVisible(false)}
         />
-        {product.videoUrl ? (
+        {product.videoUrl && isFocused ? (
           <>
             <video
               ref={videoRef}
@@ -91,7 +91,7 @@ function ProductCard({
               playsInline
               muted
               loop
-              preload="metadata"
+              preload="none"
               poster={images[0]}
             />
             <div

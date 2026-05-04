@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { ProductWithSeller } from "@/lib/types";
 import ProductCard from "./ProductCard";
 
@@ -10,7 +17,11 @@ interface HomeFeedProps {
 
 export default function HomeFeed({ products }: HomeFeedProps) {
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const [manualLocation, setManualLocation] = useState("");
+  const deferredLocation = useDeferredValue(manualLocation);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [visibleCount, setVisibleCount] = useState(18);
   const [status, setStatus] = useState("Search products or choose an India location.");
   const [isDetecting, setIsDetecting] = useState(false);
   const [detected, setDetected] = useState(false);
@@ -240,26 +251,54 @@ export default function HomeFeed({ products }: HomeFeedProps) {
     [],
   );
 
+  const categories = useMemo(
+    () =>
+      Array.from(new Set(products.map((product) => product.category)))
+        .filter(Boolean)
+        .sort()
+        .slice(0, 8),
+    [products],
+  );
+
   const filteredProducts = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    const normalizedLocation = manualLocation.trim().toLowerCase();
+    const queryTokens = deferredQuery
+      .trim()
+      .toLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    const locationTokens = deferredLocation
+      .trim()
+      .toLowerCase()
+      .split(/[,\s]+/)
+      .filter((token) => token.length > 1);
+    const normalizedCategory = selectedCategory.toLowerCase();
 
     return products.filter((product) => {
       const text =
-        `${product.title} ${product.description} ${product.category} ${product.sellerName}`.toLowerCase();
-      const matchesQuery = normalizedQuery
-        ? text.includes(normalizedQuery)
+        `${product.title} ${product.description} ${product.category} ${product.sellerName} ${product.location}`.toLowerCase();
+      const matchesQuery = queryTokens.length
+        ? queryTokens.every((token) => text.includes(token))
         : true;
-      const matchesLocation = normalizedLocation
-        ? product.location.toLowerCase().includes(normalizedLocation)
+      const matchesCategory = normalizedCategory
+        ? product.category.toLowerCase() === normalizedCategory
         : true;
-      return matchesQuery && matchesLocation;
+      const productLocation = product.location.toLowerCase();
+      const matchesLocation = locationTokens.length
+        ? locationTokens.some((token) => productLocation.includes(token))
+        : true;
+      return matchesQuery && matchesCategory && matchesLocation;
     });
-  }, [products, query, manualLocation]);
+  }, [products, deferredQuery, deferredLocation, selectedCategory]);
+
+  useEffect(() => {
+    setVisibleCount(18);
+    setFocusedProductId(null);
+    visibleRatioRef.current.clear();
+  }, [deferredQuery, deferredLocation, selectedCategory]);
 
   const displayedProducts = useMemo(
-    () => filteredProducts.slice(0, 80),
-    [filteredProducts],
+    () => filteredProducts.slice(0, visibleCount),
+    [filteredProducts, visibleCount],
   );
 
   return (
@@ -290,6 +329,27 @@ export default function HomeFeed({ products }: HomeFeedProps) {
             />
           </label>
         </div>
+        <div className="category-scroll" aria-label="Product categories">
+          <button
+            type="button"
+            className={`category-chip ${selectedCategory ? "" : "active"}`}
+            onClick={() => setSelectedCategory("")}
+          >
+            All
+          </button>
+          {categories.map((category) => (
+            <button
+              key={category}
+              type="button"
+              className={`category-chip ${
+                selectedCategory === category ? "active" : ""
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
         <div className="search-actions">
           <button
             type="button"
@@ -305,7 +365,7 @@ export default function HomeFeed({ products }: HomeFeedProps) {
           </button>
           <span className="status-text">{status}</span>
         </div>
-        {(query || manualLocation) ? (
+        {(query || manualLocation || selectedCategory) ? (
           <div className="active-filter-row">
             <span>
               Showing {filteredProducts.length} result
@@ -316,6 +376,7 @@ export default function HomeFeed({ products }: HomeFeedProps) {
               className="text-button"
               onClick={() => {
                 setQuery("");
+                setSelectedCategory("");
                 clearLocation();
               }}
             >
@@ -357,15 +418,11 @@ export default function HomeFeed({ products }: HomeFeedProps) {
             </div>
           ) : null}
         </div>
-        <div>
+        <div className="header-actions">
           <a className="secondary-button" href="/post-product">
             Post an item
           </a>
-          <a
-            className="secondary-button"
-            href="/create-seller"
-            style={{ marginLeft: "10px" }}
-          >
+          <a className="secondary-button" href="/create-seller">
             Become a seller
           </a>
         </div>
@@ -384,9 +441,16 @@ export default function HomeFeed({ products }: HomeFeedProps) {
       {filteredProducts.length > displayedProducts.length ? (
         <div className="info-card">
           <p>
-            {filteredProducts.length} products match your search. Keep scrolling
-            for more.
+            Showing {displayedProducts.length} of {filteredProducts.length}
+            matching products.
           </p>
+          <button
+            type="button"
+            className="primary-button load-more-button"
+            onClick={() => setVisibleCount((count) => count + 18)}
+          >
+            Load more
+          </button>
         </div>
       ) : null}
       {!filteredProducts.length ? (

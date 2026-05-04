@@ -158,6 +158,13 @@ button {
   align-items: flex-start;
 }
 
+.header-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .location-banner {
   display: inline-grid;
   gap: 8px;
@@ -235,10 +242,45 @@ button {
   padding: 0;
 }
 
+.category-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category-chip {
+  flex: 0 0 auto;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 999px;
+  background: #f8fbff;
+  color: #334155;
+  font-weight: 700;
+  padding: 9px 13px;
+  white-space: nowrap;
+}
+
+.category-chip.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.load-more-button {
+  margin-top: 14px;
+}
+
 .product-image-wrap {
   position: relative;
   overflow: hidden;
   border-radius: 28px 28px 0 0;
+  aspect-ratio: 1.28 / 1;
   min-height: 260px;
   background: #f1f5f9;
   contain: layout style paint;
@@ -616,6 +658,17 @@ button {
   min-height: 280px;
 }
 
+.product-card .image-carousel,
+.product-card .image-carousel-track {
+  height: 100%;
+}
+
+.product-card .image-carousel-track img {
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+}
+
 .product-card-content {
   padding: 20px;
   display: grid;
@@ -763,6 +816,9 @@ button {
   .search-panel {
     gap: 12px;
     border-radius: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
   }
   .search-fields {
     gap: 10px;
@@ -779,7 +835,7 @@ button {
     padding: 10px 12px;
   }
   .search-actions {
-    gap: 8px;
+    gap: 6px;
   }
   .search-actions button,
   .secondary-button {
@@ -787,11 +843,29 @@ button {
     padding: 10px 14px;
   }
   .search-actions .status-text {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     line-height: 1.35;
+  }
+  .category-scroll {
+    margin-inline: -14px;
+    padding: 0 14px 2px;
+  }
+  .category-chip {
+    padding: 8px 11px;
+    font-size: 0.84rem;
+  }
+  .active-filter-row {
+    font-size: 0.82rem;
   }
   .section-header-row {
     gap: 10px;
+  }
+  .header-actions {
+    justify-content: stretch;
+  }
+  .header-actions .secondary-button {
+    flex: 1 1 130px;
+    text-align: center;
   }
   .section-header-row h2,
   .eyebrow {
@@ -810,6 +884,13 @@ button {
   .product-card img {
     min-height: 190px;
   }
+  .product-image-wrap {
+    aspect-ratio: 1.16 / 1;
+  }
+  .product-card .image-carousel-track img {
+    height: 100%;
+    min-height: 190px;
+  }
   .search-panel,
   .product-card-content,
   .info-card {
@@ -817,6 +898,10 @@ button {
   }
   .product-card-content {
     gap: 8px;
+  }
+  .product-rating-row,
+  .seller-subtext {
+    display: none;
   }
   .product-card h2 {
     font-size: 1rem;
