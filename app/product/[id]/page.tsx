@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getProductById, getSellerById, getAllProductRatings } from '@/lib/api';
 import RatingStars from '@/components/RatingStars';
 import SellerBadge from '@/components/SellerBadge';
+import ImageCarousel from '@/components/ImageCarousel';
 
 interface ProductPageProps {
   params: { id: string };
@@ -27,7 +28,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </Link>
       <section className="detail-grid">
         <div className="detail-image-card">
-          <img src={product.imageUrl} alt={product.title} className="detail-image" />
+          <ImageCarousel
+            images={product.imageUrls}
+            alt={product.title}
+            className="detail-image"
+          />
           <div className="price-badge">{product.discountPercentage}% OFF</div>
         </div>
         <div className="detail-copy">
