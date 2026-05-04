@@ -1,0 +1,842 @@
+[
+  {
+    "id": "sr-s-ap-1",
+    "targetId": "s-ap",
+    "score": 3.8,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-ap-2",
+    "targetId": "s-ap",
+    "score": 3.8,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-ap-3",
+    "targetId": "s-ap",
+    "score": 3.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-ar-1",
+    "targetId": "s-ar",
+    "score": 4.9,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-ar-2",
+    "targetId": "s-ar",
+    "score": 4.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-ar-3",
+    "targetId": "s-ar",
+    "score": 4.7,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-ar-4",
+    "targetId": "s-ar",
+    "score": 4.6,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-ar-5",
+    "targetId": "s-ar",
+    "score": 4.5,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-as-1",
+    "targetId": "s-as",
+    "score": 4.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-as-2",
+    "targetId": "s-as",
+    "score": 4.6,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-as-3",
+    "targetId": "s-as",
+    "score": 4.4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-as-4",
+    "targetId": "s-as",
+    "score": 4.2,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-as-5",
+    "targetId": "s-as",
+    "score": 4,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-as-6",
+    "targetId": "s-as",
+    "score": 3.8,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-as-7",
+    "targetId": "s-as",
+    "score": 4.8,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-br-1",
+    "targetId": "s-br",
+    "score": 4.7,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-br-2",
+    "targetId": "s-br",
+    "score": 4.4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-br-3",
+    "targetId": "s-br",
+    "score": 4.1,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-br-4",
+    "targetId": "s-br",
+    "score": 3.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-ct-1",
+    "targetId": "s-ct",
+    "score": 4.6,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-ct-2",
+    "targetId": "s-ct",
+    "score": 4.2,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-ct-3",
+    "targetId": "s-ct",
+    "score": 3.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-ct-4",
+    "targetId": "s-ct",
+    "score": 4.6,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-ct-5",
+    "targetId": "s-ct",
+    "score": 4.2,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-ct-6",
+    "targetId": "s-ct",
+    "score": 3.8,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-ga-1",
+    "targetId": "s-ga",
+    "score": 4.5,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-ga-2",
+    "targetId": "s-ga",
+    "score": 4,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-ga-3",
+    "targetId": "s-ga",
+    "score": 4.7,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-gj-1",
+    "targetId": "s-gj",
+    "score": 4.4,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-gj-2",
+    "targetId": "s-gj",
+    "score": 3.8,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-gj-3",
+    "targetId": "s-gj",
+    "score": 4.4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-gj-4",
+    "targetId": "s-gj",
+    "score": 3.8,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-gj-5",
+    "targetId": "s-gj",
+    "score": 4.4,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-hr-1",
+    "targetId": "s-hr",
+    "score": 4.3,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-hr-2",
+    "targetId": "s-hr",
+    "score": 4.8,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-hr-3",
+    "targetId": "s-hr",
+    "score": 4.1,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-hr-4",
+    "targetId": "s-hr",
+    "score": 4.6,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-hr-5",
+    "targetId": "s-hr",
+    "score": 3.9,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-hr-6",
+    "targetId": "s-hr",
+    "score": 4.4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-hr-7",
+    "targetId": "s-hr",
+    "score": 4.9,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-hp-1",
+    "targetId": "s-hp",
+    "score": 4.2,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-hp-2",
+    "targetId": "s-hp",
+    "score": 4.6,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-hp-3",
+    "targetId": "s-hp",
+    "score": 3.8,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-hp-4",
+    "targetId": "s-hp",
+    "score": 4.2,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-jh-1",
+    "targetId": "s-jh",
+    "score": 4.1,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-jh-2",
+    "targetId": "s-jh",
+    "score": 4.4,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-jh-3",
+    "targetId": "s-jh",
+    "score": 4.7,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-jh-4",
+    "targetId": "s-jh",
+    "score": 3.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-jh-5",
+    "targetId": "s-jh",
+    "score": 4.1,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-jh-6",
+    "targetId": "s-jh",
+    "score": 4.4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-ka-1",
+    "targetId": "s-ka",
+    "score": 4,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-ka-2",
+    "targetId": "s-ka",
+    "score": 4.2,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-ka-3",
+    "targetId": "s-ka",
+    "score": 4.4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-kl-1",
+    "targetId": "s-kl",
+    "score": 3.9,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-kl-2",
+    "targetId": "s-kl",
+    "score": 4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-kl-3",
+    "targetId": "s-kl",
+    "score": 4.1,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-kl-4",
+    "targetId": "s-kl",
+    "score": 4.2,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-kl-5",
+    "targetId": "s-kl",
+    "score": 4.3,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-mp-1",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-mp-2",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-mp-3",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-mp-4",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-mp-5",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-mp-6",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-mp-7",
+    "targetId": "s-mp",
+    "score": 3.8,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-mh-1",
+    "targetId": "s-mh",
+    "score": 4.9,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-mh-2",
+    "targetId": "s-mh",
+    "score": 4.8,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-mh-3",
+    "targetId": "s-mh",
+    "score": 4.7,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-mh-4",
+    "targetId": "s-mh",
+    "score": 4.6,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-mn-1",
+    "targetId": "s-mn",
+    "score": 4.8,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-mn-2",
+    "targetId": "s-mn",
+    "score": 4.6,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-mn-3",
+    "targetId": "s-mn",
+    "score": 4.4,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-mn-4",
+    "targetId": "s-mn",
+    "score": 4.2,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-mn-5",
+    "targetId": "s-mn",
+    "score": 4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-mn-6",
+    "targetId": "s-mn",
+    "score": 3.8,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-ml-1",
+    "targetId": "s-ml",
+    "score": 4.7,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-ml-2",
+    "targetId": "s-ml",
+    "score": 4.4,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-ml-3",
+    "targetId": "s-ml",
+    "score": 4.1,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-mz-1",
+    "targetId": "s-mz",
+    "score": 4.6,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-mz-2",
+    "targetId": "s-mz",
+    "score": 4.2,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-mz-3",
+    "targetId": "s-mz",
+    "score": 3.8,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-mz-4",
+    "targetId": "s-mz",
+    "score": 4.6,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-mz-5",
+    "targetId": "s-mz",
+    "score": 4.2,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-nl-1",
+    "targetId": "s-nl",
+    "score": 4.5,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-nl-2",
+    "targetId": "s-nl",
+    "score": 4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-nl-3",
+    "targetId": "s-nl",
+    "score": 4.7,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-nl-4",
+    "targetId": "s-nl",
+    "score": 4.2,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-nl-5",
+    "targetId": "s-nl",
+    "score": 4.9,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-nl-6",
+    "targetId": "s-nl",
+    "score": 4.4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-nl-7",
+    "targetId": "s-nl",
+    "score": 3.9,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-or-1",
+    "targetId": "s-or",
+    "score": 4.4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-or-2",
+    "targetId": "s-or",
+    "score": 3.8,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-or-3",
+    "targetId": "s-or",
+    "score": 4.4,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-or-4",
+    "targetId": "s-or",
+    "score": 3.8,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-pb-1",
+    "targetId": "s-pb",
+    "score": 4.3,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-pb-2",
+    "targetId": "s-pb",
+    "score": 4.8,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-pb-3",
+    "targetId": "s-pb",
+    "score": 4.1,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-pb-4",
+    "targetId": "s-pb",
+    "score": 4.6,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-pb-5",
+    "targetId": "s-pb",
+    "score": 3.9,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-pb-6",
+    "targetId": "s-pb",
+    "score": 4.4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-rj-1",
+    "targetId": "s-rj",
+    "score": 4.2,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-rj-2",
+    "targetId": "s-rj",
+    "score": 4.6,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-rj-3",
+    "targetId": "s-rj",
+    "score": 3.8,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-sk-1",
+    "targetId": "s-sk",
+    "score": 4.1,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-sk-2",
+    "targetId": "s-sk",
+    "score": 4.4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-sk-3",
+    "targetId": "s-sk",
+    "score": 4.7,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-sk-4",
+    "targetId": "s-sk",
+    "score": 3.8,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-sk-5",
+    "targetId": "s-sk",
+    "score": 4.1,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-tn-1",
+    "targetId": "s-tn",
+    "score": 4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-tn-2",
+    "targetId": "s-tn",
+    "score": 4.2,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-tn-3",
+    "targetId": "s-tn",
+    "score": 4.4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-tn-4",
+    "targetId": "s-tn",
+    "score": 4.6,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-tn-5",
+    "targetId": "s-tn",
+    "score": 4.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-tn-6",
+    "targetId": "s-tn",
+    "score": 3.8,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-tn-7",
+    "targetId": "s-tn",
+    "score": 4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-tl-1",
+    "targetId": "s-tl",
+    "score": 3.9,
+    "review": "Very polite and responsive seller."
+  },
+  {
+    "id": "sr-s-tl-2",
+    "targetId": "s-tl",
+    "score": 4,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-tl-3",
+    "targetId": "s-tl",
+    "score": 4.1,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-tl-4",
+    "targetId": "s-tl",
+    "score": 4.2,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-tr-1",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Nice seller, would recommend."
+  },
+  {
+    "id": "sr-s-tr-2",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-tr-3",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-tr-4",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-tr-5",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-tr-6",
+    "targetId": "s-tr",
+    "score": 3.8,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-up-1",
+    "targetId": "s-up",
+    "score": 4.9,
+    "review": "Great experience buying from this seller."
+  },
+  {
+    "id": "sr-s-up-2",
+    "targetId": "s-up",
+    "score": 4.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-up-3",
+    "targetId": "s-up",
+    "score": 4.7,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-ut-1",
+    "targetId": "s-ut",
+    "score": 4.8,
+    "review": "Product was exactly as advertised, thanks!"
+  },
+  {
+    "id": "sr-s-ut-2",
+    "targetId": "s-ut",
+    "score": 4.6,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-ut-3",
+    "targetId": "s-ut",
+    "score": 4.4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-ut-4",
+    "targetId": "s-ut",
+    "score": 4.2,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-ut-5",
+    "targetId": "s-ut",
+    "score": 4,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-wb-1",
+    "targetId": "s-wb",
+    "score": 4.7,
+    "review": "Seller made the transaction easy."
+  },
+  {
+    "id": "sr-s-wb-2",
+    "targetId": "s-wb",
+    "score": 4.4,
+    "review": "Fast and clear communication."
+  },
+  {
+    "id": "sr-s-wb-3",
+    "targetId": "s-wb",
+    "score": 4.1,
+    "review": "Friendly seller and smooth pickup."
+  },
+  {
+    "id": "sr-s-wb-4",
+    "targetId": "s-wb",
+    "score": 3.8,
+    "review": "Good communication and quick reply."
+  },
+  {
+    "id": "sr-s-wb-5",
+    "targetId": "s-wb",
+    "score": 4.7,
+    "review": "Seller was helpful and honest."
+  },
+  {
+    "id": "sr-s-wb-6",
+    "targetId": "s-wb",
+    "score": 4.4,
+    "review": "Pickup was easy and product matched the listing."
+  },
+  {
+    "id": "sr-s-wb-7",
+    "targetId": "s-wb",
+    "score": 4.1,
+    "review": "Very polite and responsive seller."
+  }
+]

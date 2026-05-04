@@ -1,0 +1,198 @@
+[
+  {
+    "id": "s-ap",
+    "name": "Vijayawada Market",
+    "location": "Vijayawada, Andhra Pradesh",
+    "bio": "Local seller based in Vijayawada offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ap/200/200"
+  },
+  {
+    "id": "s-ar",
+    "name": "Itanagar Market",
+    "location": "Itanagar, Arunachal Pradesh",
+    "bio": "Local seller based in Itanagar offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ar/200/200"
+  },
+  {
+    "id": "s-as",
+    "name": "Guwahati Market",
+    "location": "Guwahati, Assam",
+    "bio": "Local seller based in Guwahati offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-as/200/200"
+  },
+  {
+    "id": "s-br",
+    "name": "Patna Market",
+    "location": "Patna, Bihar",
+    "bio": "Local seller based in Patna offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-br/200/200"
+  },
+  {
+    "id": "s-ct",
+    "name": "Raipur Market",
+    "location": "Raipur, Chhattisgarh",
+    "bio": "Local seller based in Raipur offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ct/200/200"
+  },
+  {
+    "id": "s-ga",
+    "name": "Panaji Market",
+    "location": "Panaji, Goa",
+    "bio": "Local seller based in Panaji offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ga/200/200"
+  },
+  {
+    "id": "s-gj",
+    "name": "Ahmedabad Market",
+    "location": "Ahmedabad, Gujarat",
+    "bio": "Local seller based in Ahmedabad offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-gj/200/200"
+  },
+  {
+    "id": "s-hr",
+    "name": "Gurugram Market",
+    "location": "Gurugram, Haryana",
+    "bio": "Local seller based in Gurugram offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-hr/200/200"
+  },
+  {
+    "id": "s-hp",
+    "name": "Shimla Market",
+    "location": "Shimla, Himachal Pradesh",
+    "bio": "Local seller based in Shimla offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-hp/200/200"
+  },
+  {
+    "id": "s-jh",
+    "name": "Ranchi Market",
+    "location": "Ranchi, Jharkhand",
+    "bio": "Local seller based in Ranchi offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-jh/200/200"
+  },
+  {
+    "id": "s-ka",
+    "name": "Bengaluru Market",
+    "location": "Bengaluru, Karnataka",
+    "bio": "Local seller based in Bengaluru offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ka/200/200"
+  },
+  {
+    "id": "s-kl",
+    "name": "Kochi Market",
+    "location": "Kochi, Kerala",
+    "bio": "Local seller based in Kochi offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-kl/200/200"
+  },
+  {
+    "id": "s-mp",
+    "name": "Bhopal Market",
+    "location": "Bhopal, Madhya Pradesh",
+    "bio": "Local seller based in Bhopal offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-mp/200/200"
+  },
+  {
+    "id": "s-mh",
+    "name": "Mumbai Market",
+    "location": "Mumbai, Maharashtra",
+    "bio": "Local seller based in Mumbai offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-mh/200/200"
+  },
+  {
+    "id": "s-mn",
+    "name": "Imphal Market",
+    "location": "Imphal, Manipur",
+    "bio": "Local seller based in Imphal offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-mn/200/200"
+  },
+  {
+    "id": "s-ml",
+    "name": "Shillong Market",
+    "location": "Shillong, Meghalaya",
+    "bio": "Local seller based in Shillong offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ml/200/200"
+  },
+  {
+    "id": "s-mz",
+    "name": "Aizawl Market",
+    "location": "Aizawl, Mizoram",
+    "bio": "Local seller based in Aizawl offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-mz/200/200"
+  },
+  {
+    "id": "s-nl",
+    "name": "Kohima Market",
+    "location": "Kohima, Nagaland",
+    "bio": "Local seller based in Kohima offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-nl/200/200"
+  },
+  {
+    "id": "s-or",
+    "name": "Bhubaneswar Market",
+    "location": "Bhubaneswar, Odisha",
+    "bio": "Local seller based in Bhubaneswar offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-or/200/200"
+  },
+  {
+    "id": "s-pb",
+    "name": "Amritsar Market",
+    "location": "Amritsar, Punjab",
+    "bio": "Local seller based in Amritsar offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-pb/200/200"
+  },
+  {
+    "id": "s-rj",
+    "name": "Jaipur Market",
+    "location": "Jaipur, Rajasthan",
+    "bio": "Local seller based in Jaipur offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-rj/200/200"
+  },
+  {
+    "id": "s-sk",
+    "name": "Gangtok Market",
+    "location": "Gangtok, Sikkim",
+    "bio": "Local seller based in Gangtok offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-sk/200/200"
+  },
+  {
+    "id": "s-tn",
+    "name": "Chennai Market",
+    "location": "Chennai, Tamil Nadu",
+    "bio": "Local seller based in Chennai offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-tn/200/200"
+  },
+  {
+    "id": "s-tl",
+    "name": "Hyderabad Market",
+    "location": "Hyderabad, Telangana",
+    "bio": "Local seller based in Hyderabad offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-tl/200/200"
+  },
+  {
+    "id": "s-tr",
+    "name": "Agartala Market",
+    "location": "Agartala, Tripura",
+    "bio": "Local seller based in Agartala offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-tr/200/200"
+  },
+  {
+    "id": "s-up",
+    "name": "Lucknow Market",
+    "location": "Lucknow, Uttar Pradesh",
+    "bio": "Local seller based in Lucknow offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-up/200/200"
+  },
+  {
+    "id": "s-ut",
+    "name": "Dehradun Market",
+    "location": "Dehradun, Uttarakhand",
+    "bio": "Local seller based in Dehradun offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-ut/200/200"
+  },
+  {
+    "id": "s-wb",
+    "name": "Kolkata Market",
+    "location": "Kolkata, West Bengal",
+    "bio": "Local seller based in Kolkata offering affordable goods across categories.",
+    "avatarUrl": "https://picsum.photos/seed/seller-wb/200/200"
+  }
+]
