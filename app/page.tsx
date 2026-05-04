@@ -1,9 +1,9 @@
-import type { ProductWithSeller } from '@/lib/types';
-import { getAllProducts } from '@/lib/api';
-import HomeFeed from '@/components/HomeFeed';
+import type { ProductWithSeller } from "@/lib/types";
+import { getAllProducts } from "@/lib/api";
+import HomeFeed from "@/components/HomeFeed";
 
 export default async function HomePage() {
-  const products = await getAllProducts();
+  const products = await getAllProducts(50);
 
   return (
     <main className="page-shell">
@@ -12,8 +12,8 @@ export default async function HomePage() {
           <p className="eyebrow">Nearby discounts, curated daily</p>
           <h1>Swipe the cheapest useful products around you.</h1>
           <p className="hero-copy">
-            Browse second-hand gems, fresh bargains, and quality finds in a responsive
-            Instagram-style marketplace.
+            Browse second-hand gems, fresh bargains, and quality finds in a
+            responsive Instagram-style marketplace.
           </p>
         </div>
       </section>

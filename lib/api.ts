@@ -28,9 +28,10 @@ const enrichProduct = (product: Product): ProductWithSeller => {
   };
 };
 
-export async function getAllProducts(): Promise<ProductWithSeller[]> {
+export async function getAllProducts(limit?: number): Promise<ProductWithSeller[]> {
   await delay();
-  return productsData.map(enrichProduct);
+  const limitedProducts = limit ? productsData.slice(0, limit) : productsData;
+  return limitedProducts.map(enrichProduct);
 }
 
 export async function getProductById(id: string): Promise<ProductWithSeller | null> {

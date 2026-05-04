@@ -1,17 +1,17 @@
-'use client';
-
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ProductWithSeller } from '@/lib/types';
-import ProductCard from './ProductCard';
+"use client";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import type { ProductWithSeller } from "@/lib/types";
+import ProductCard from "./ProductCard";
 
 interface HomeFeedProps {
   products: ProductWithSeller[];
 }
 
 export default function HomeFeed({ products }: HomeFeedProps) {
-  const [query, setQuery] = useState('');
-  const [manualLocation, setManualLocation] = useState('');
-  const [status, setStatus] = useState('Use auto-detect to show nearby deals.');
+  const [query, setQuery] = useState("");
+  const [manualLocation, setManualLocation] = useState("");
+  const [status, setStatus] = useState("Use auto-detect to show nearby deals.");
   const [isDetecting, setIsDetecting] = useState(false);
   const [detected, setDetected] = useState(false);
   const [scrolling, setScrolling] = useState(false);
@@ -23,19 +23,19 @@ export default function HomeFeed({ products }: HomeFeedProps) {
 
   const handleDetectLocation = () => {
     if (!navigator.geolocation) {
-      setStatus('Geolocation is not supported by this browser.');
+      setStatus("Geolocation is not supported by this browser.");
       return;
     }
 
     setIsDetecting(true);
-    setStatus('Finding your location...');
+    setStatus("Finding your location...");
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setDetected(true);
-        setManualLocation('');
+        setManualLocation("");
         setStatus(
-          `Location detected. Showing deals near you (${position.coords.latitude.toFixed(2)}, ${position.coords.longitude.toFixed(2)}).`
+          `Location detected. Showing deals near you (${position.coords.latitude.toFixed(2)}, ${position.coords.longitude.toFixed(2)}).`,
         );
         setIsDetecting(false);
       },
@@ -44,14 +44,14 @@ export default function HomeFeed({ products }: HomeFeedProps) {
         setIsDetecting(false);
         setDetected(false);
       },
-      { timeout: 12000 }
+      { timeout: 12000 },
     );
   };
 
   const clearLocation = () => {
-    setManualLocation('');
+    setManualLocation("");
     setDetected(false);
-    setStatus('Location cleared. Search any city or tap auto-detect again.');
+    setStatus("Location cleared. Search any city or tap auto-detect again.");
   };
 
   const scrollTimeoutRef = useRef<number | null>(null);
@@ -68,9 +68,9 @@ export default function HomeFeed({ products }: HomeFeedProps) {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (scrollTimeoutRef.current) {
         window.clearTimeout(scrollTimeoutRef.current);
       }
@@ -78,23 +78,27 @@ export default function HomeFeed({ products }: HomeFeedProps) {
   }, []);
 
   const updateFocusedProduct = useCallback(() => {
-    const visibleItems = Array.from(visibleRatioRef.current.entries()).filter(([, ratio]) => ratio >= 0.45);
+    const visibleItems = Array.from(visibleRatioRef.current.entries()).filter(
+      ([, ratio]) => ratio >= 0.45,
+    );
     if (!visibleItems.length) {
       setFocusedProductId(null);
       return;
     }
 
-    const [bestId] = visibleItems.reduce((best, current) => (current[1] > best[1] ? current : best));
+    const [bestId] = visibleItems.reduce((best, current) =>
+      current[1] > best[1] ? current : best,
+    );
     setFocusedProductId(bestId[0]);
   }, []);
 
   const observer = useMemo(() => {
-    if (typeof window === 'undefined') return null;
+    if (typeof window === "undefined") return null;
 
     return new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const productId = entry.target.getAttribute('data-product-id');
+          const productId = entry.target.getAttribute("data-product-id");
           if (!productId) return;
 
           if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
@@ -106,7 +110,7 @@ export default function HomeFeed({ products }: HomeFeedProps) {
 
         updateFocusedProduct();
       },
-      { threshold: [0.25, 0.45, 0.6] }
+      { threshold: [0.25, 0.45, 0.6] },
     );
   }, []);
 
@@ -139,21 +143,26 @@ export default function HomeFeed({ products }: HomeFeedProps) {
         updateFocusedProduct();
       }
     },
-    []
+    [],
   );
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    const normalizedLocation = detected ? '' : manualLocation.trim().toLowerCase();
+    const normalizedLocation = detected
+      ? ""
+      : manualLocation.trim().toLowerCase();
 
     return products.filter((product) => {
-      const text = `${product.title} ${product.description} ${product.category} ${product.sellerName}`.toLowerCase();
-      const matchesQuery = normalizedQuery ? text.includes(normalizedQuery) : true;
+      const text =
+        `${product.title} ${product.description} ${product.category} ${product.sellerName}`.toLowerCase();
+      const matchesQuery = normalizedQuery
+        ? text.includes(normalizedQuery)
+        : true;
       const matchesLocation = detected
         ? true
         : normalizedLocation
-        ? product.location.toLowerCase().includes(normalizedLocation)
-        : true;
+          ? product.location.toLowerCase().includes(normalizedLocation)
+          : true;
       return matchesQuery && matchesLocation;
     });
   }, [products, query, manualLocation, detected]);
@@ -173,11 +182,13 @@ export default function HomeFeed({ products }: HomeFeedProps) {
             />
           </label>
           <label className="field-label">
-            {detected ? 'Using detected location' : 'Location'}
+            {detected ? "Using detected location" : "Location"}
             <input
               type="search"
-              placeholder={detected ? 'Location detected' : 'Enter neighbourhood or city'}
-              value={detected ? 'Nearby' : manualLocation}
+              placeholder={
+                detected ? "Location detected" : "Enter neighbourhood or city"
+              }
+              value={detected ? "Nearby" : manualLocation}
               onChange={(event) => {
                 setManualLocation(event.target.value);
                 setDetected(false);
@@ -188,8 +199,17 @@ export default function HomeFeed({ products }: HomeFeedProps) {
           </label>
         </div>
         <div className="search-actions">
-          <button type="button" className="secondary-button" onClick={detected ? clearLocation : handleDetectLocation} disabled={isDetecting}>
-            {isDetecting ? 'Detecting...' : detected ? 'Clear location' : 'Auto-detect location'}
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={detected ? clearLocation : handleDetectLocation}
+            disabled={isDetecting}
+          >
+            {isDetecting
+              ? "Detecting..."
+              : detected
+                ? "Clear location"
+                : "Auto-detect location"}
           </button>
           <span className="status-text">{status}</span>
         </div>
@@ -207,12 +227,16 @@ export default function HomeFeed({ products }: HomeFeedProps) {
           ) : null}
         </div>
         <div>
-          <a className="secondary-button" href="/post-product">
+          <Link className="secondary-button" href="/post-product">
             Post an item
-          </a>
-          <a className="secondary-button" href="/create-seller" style={{ marginLeft: '10px' }}>
+          </Link>
+          <Link
+            className="secondary-button"
+            href="/create-seller"
+            style={{ marginLeft: "10px" }}
+          >
             Become a seller
-          </a>
+          </Link>
         </div>
       </div>
       <div className="product-grid">
@@ -230,7 +254,10 @@ export default function HomeFeed({ products }: HomeFeedProps) {
       {!filteredProducts.length ? (
         <div className="info-card">
           <h3>No products matched</h3>
-          <p>Try a broader search term or clear the location filter to browse more deals.</p>
+          <p>
+            Try a broader search term or clear the location filter to browse
+            more deals.
+          </p>
         </div>
       ) : null}
     </section>
