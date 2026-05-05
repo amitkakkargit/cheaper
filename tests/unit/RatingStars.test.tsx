@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import RatingStars from "@/components/RatingStars";
+import RatingStars, { roundRatingToHalf } from "@/components/RatingStars";
 
 describe("RatingStars component", () => {
   it("renders star icons and label", () => {
@@ -23,15 +23,20 @@ describe("RatingStars component", () => {
     );
 
     const stars = screen.getAllByRole("button");
-    expect(stars).toHaveLength(5);
+    expect(stars).toHaveLength(10);
 
-    fireEvent.click(stars[4]); // Click the 5th star
-    expect(mockOnRatingChange).toHaveBeenCalledWith(5);
+    fireEvent.click(screen.getByLabelText("Rate 3.5 out of 5"));
+    expect(mockOnRatingChange).toHaveBeenCalledWith(3.5);
   });
 
   it("is not interactive by default", () => {
     render(<RatingStars rating={4.2} label="Test rating" />);
     const stars = screen.queryAllByRole("button");
     expect(stars).toHaveLength(0); // No buttons when not interactive
+  });
+
+  it("rounds averages to the nearest half for visual fill", () => {
+    expect(roundRatingToHalf(4.3)).toBe(4.5);
+    expect(roundRatingToHalf(3.2)).toBe(3);
   });
 });

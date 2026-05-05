@@ -329,6 +329,12 @@ export default function AccountMenu() {
                 <button type="button" className="secondary-button" onClick={saveProfile}>
                   Save profile
                 </button>
+                <a className="secondary-button" href="/privacy-settings">
+                  Privacy settings
+                </a>
+                <a className="secondary-button" href="/support">
+                  Help & support
+                </a>
                 <button type="button" className="secondary-button" onClick={logout}>
                   Log out
                 </button>

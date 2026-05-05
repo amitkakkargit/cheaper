@@ -1,4 +1,9 @@
 import { getConfiguredApiBaseUrl } from "@/lib/apiBaseUrl";
+import type {
+  CreateSupportTicketInput,
+  SupportTicketResponse,
+  TransactionStatus,
+} from "@/lib/types";
 
 const TOKEN_KEY = "cheaperAccessToken";
 
@@ -91,6 +96,69 @@ export async function getCurrentUser() {
 export async function updateProfile(data: { name?: string; avatarUrl?: string }) {
   return apiRequest<CurrentUser>("/users/me", {
     method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getTransactionStatus(productId: string) {
+  return apiRequest<TransactionStatus>(
+    `/products/${encodeURIComponent(productId)}/transaction-status`,
+  );
+}
+
+export async function markProductSold(productId: string) {
+  return apiRequest("/products/mark-sold", {
+    method: "POST",
+    body: JSON.stringify({ productId }),
+  });
+}
+
+export async function markProductReceived(productId: string) {
+  return apiRequest("/products/mark-received", {
+    method: "POST",
+    body: JSON.stringify({ productId }),
+  });
+}
+
+export async function createProductReview(data: {
+  productId: string;
+  sellerId: string;
+  rating: number;
+  comment?: string;
+}) {
+  return apiRequest("/product-reviews", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function createSellerReview(data: {
+  productId: string;
+  sellerId: string;
+  rating: number;
+  comment?: string;
+}) {
+  return apiRequest("/seller-reviews", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function createBuyerReview(data: {
+  productId: string;
+  buyerId: string;
+  rating: number;
+  comment?: string;
+}) {
+  return apiRequest("/buyer-reviews", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function createSupportTicket(data: CreateSupportTicketInput) {
+  return apiRequest<SupportTicketResponse>("/support-tickets", {
+    method: "POST",
     body: JSON.stringify(data),
   });
 }

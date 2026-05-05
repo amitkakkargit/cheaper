@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AccountMenu from "@/components/AccountMenu";
+import AppFooter from "@/components/AppFooter";
 import JsonLd from "@/components/JsonLd";
 import {
   buildOrganizationJsonLd,
@@ -63,6 +64,7 @@ export default function RootLayout({
           <AccountMenu />
         </header>
         {children}
+        <AppFooter />
       </body>
     </html>
   );

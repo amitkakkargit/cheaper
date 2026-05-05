@@ -1,8 +1,25 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { apiRequest, getCurrentUser, type CurrentUser } from "@/lib/clientApi";
-import type { ProductWithSeller } from "@/lib/types";
+import { useEffect, useState } from "react";
+import {
+  createBuyerReview,
+  createProductReview,
+  createSellerReview,
+  getCurrentUser,
+  getTransactionStatus,
+  markProductReceived,
+  markProductSold,
+  type CurrentUser,
+} from "@/lib/clientApi";
+import type { ProductWithSeller, TransactionStatus } from "@/lib/types";
+import {
+  buildFallbackTransactionStatus,
+  canBuyerMarkReceived,
+  canBuyerReviewSeller,
+  canSellerMarkSold,
+  canSellerReviewBuyer,
+  getTransactionStatusMessage,
+} from "@/lib/transactionRules";
 import FormNotification, { type NotificationState } from "./FormNotification";
 import RatingStars from "@/components/RatingStars";
 
@@ -16,22 +33,48 @@ export default function ProductActions({ product }: ProductActionsProps) {
   const [comment, setComment] = useState(
     "Bought locally and confirmed in person.",
   );
+  const [buyerReviewComment, setBuyerReviewComment] = useState(
+    "Smooth local handoff and confirmed receipt.",
+  );
   const [user, setUser] = useState<CurrentUser | null>(null);
+  const [status, setStatus] = useState<TransactionStatus | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadStatus = async (currentUser: CurrentUser | null) => {
+    if (!currentUser) {
+      setStatus(null);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      setStatus(await getTransactionStatus(product.id));
+    } catch {
+      setStatus(buildFallbackTransactionStatus(product, currentUser));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    getCurrentUser().then(setUser);
-  }, []);
+    let isMounted = true;
 
-  const isSellerOwner = useMemo(
-    () =>
-      Boolean(user?.sellers?.some((seller) => seller.id === product.sellerId)),
-    [product.sellerId, user?.sellers],
-  );
+    getCurrentUser().then(async (currentUser) => {
+      if (!isMounted) return;
+      setUser(currentUser);
+      await loadStatus(currentUser);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [product.id]);
 
   const run = async (action: () => Promise<unknown>, success: string) => {
     try {
       await action();
       setNotification({ type: "success", message: success });
+      await loadStatus(user);
     } catch (error) {
       setNotification({
         type: "error",
@@ -40,64 +83,81 @@ export default function ProductActions({ product }: ProductActionsProps) {
     }
   };
 
+  const buyerReviewEnabled = status ? canBuyerReviewSeller(status) : false;
+  const sellerReviewEnabled = status ? canSellerReviewBuyer(status) : false;
+
   return (
-    <section className="info-card">
-      <h2>Manual handoff</h2>
+    <section className="info-card" aria-labelledby="handoff-heading">
+      <h2 id="handoff-heading">Manual handoff</h2>
       <p className="muted-text">
-        Reviews unlock only after the buyer confirms they got the product and
-        the seller confirms it was sold.
+        Reviews unlock only after the transaction is acknowledged by the seller
+        or buyer according to the marketplace rules.
       </p>
       {!user ? (
         <p className="status-text">
-          Sign in with phone on the home page to confirm handoff or leave
-          reviews.
+          Sign in to confirm product handoff or leave transaction reviews.
         </p>
       ) : null}
-      <div className="header-actions">
-        <button
-          type="button"
-          className="secondary-button"
-          disabled={!user || isSellerOwner}
-          onClick={() =>
-            run(
-              () =>
-                apiRequest("/products/confirm-bought", {
-                  method: "POST",
-                  body: JSON.stringify({ productId: product.id }),
-                }),
-              "Buyer confirmation saved.",
-            )
-          }
-        >
-          I got this product
-        </button>
-        <button
-          type="button"
-          className="secondary-button"
-          disabled={!user || !isSellerOwner}
-          onClick={() =>
-            run(
-              () =>
-                apiRequest("/products/confirm-sold", {
-                  method: "POST",
-                  body: JSON.stringify({ productId: product.id }),
-                }),
-              "Seller confirmation saved.",
-            )
-          }
-        >
-          I sold this product
-        </button>
-      </div>
-      {user && !isSellerOwner ? (
-        <>
+      {user && status ? (
+        <p className="status-text" role="status">
+          {getTransactionStatusMessage(status)}
+        </p>
+      ) : null}
+      {isLoading && user ? (
+        <p className="status-text">Checking transaction status...</p>
+      ) : null}
+
+      {status?.isSellerOwner ? (
+        <div className="header-actions">
+          <button
+            type="button"
+            className="secondary-button"
+            disabled={!canSellerMarkSold(status)}
+            onClick={() =>
+              run(
+                () => markProductSold(product.id),
+                "Product marked as sold.",
+              )
+            }
+          >
+            Mark as Sold
+          </button>
+        </div>
+      ) : null}
+
+      {user && status && !status.isSellerOwner ? (
+        <div className="header-actions">
+          <button
+            type="button"
+            className="secondary-button"
+            disabled={!canBuyerMarkReceived(status)}
+            onClick={() =>
+              run(
+                () => markProductReceived(product.id),
+                "Product receipt confirmed.",
+              )
+            }
+          >
+            I Got This Product
+          </button>
+        </div>
+      ) : null}
+
+      {user && status && !status.isSellerOwner ? (
+        <fieldset className="marketplace-form" disabled={!buyerReviewEnabled}>
+          <legend>Review this transaction</legend>
+          {!buyerReviewEnabled ? (
+            <p className="status-text">
+              Reviews are disabled until you are eligible for this transaction.
+            </p>
+          ) : null}
           <div className="field-row">
             <label className="field-label">
               Rating
               <RatingStars
                 rating={rating}
-                label={`Rate this product ${rating} out of 5`}
-                interactive={true}
+                label={`Rate this transaction ${rating} out of 5`}
+                interactive={buyerReviewEnabled}
                 onRatingChange={setRating}
               />
             </label>
@@ -113,17 +173,15 @@ export default function ProductActions({ product }: ProductActionsProps) {
             <button
               type="button"
               className="primary-button"
+              disabled={!buyerReviewEnabled}
               onClick={() =>
                 run(
                   () =>
-                    apiRequest("/product-reviews", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        productId: product.id,
-                        sellerId: product.sellerId,
-                        rating,
-                        comment,
-                      }),
+                    createProductReview({
+                      productId: product.id,
+                      sellerId: product.sellerId,
+                      rating,
+                      comment,
                     }),
                   "Product review submitted.",
                 )
@@ -134,17 +192,15 @@ export default function ProductActions({ product }: ProductActionsProps) {
             <button
               type="button"
               className="primary-button"
+              disabled={!buyerReviewEnabled}
               onClick={() =>
                 run(
                   () =>
-                    apiRequest("/seller-reviews", {
-                      method: "POST",
-                      body: JSON.stringify({
-                        sellerId: product.sellerId,
-                        productId: product.id,
-                        rating,
-                        comment,
-                      }),
+                    createSellerReview({
+                      sellerId: product.sellerId,
+                      productId: product.id,
+                      rating,
+                      comment,
                     }),
                   "Seller review submitted.",
                 )
@@ -153,14 +209,58 @@ export default function ProductActions({ product }: ProductActionsProps) {
               Review seller
             </button>
           </div>
-        </>
+        </fieldset>
       ) : null}
-      {user && isSellerOwner ? (
-        <p className="status-text">
-          Sellers can confirm the sale, but cannot review their own product or
-          seller profile.
-        </p>
+
+      {user && status?.isSellerOwner ? (
+        <fieldset className="marketplace-form" disabled={!sellerReviewEnabled}>
+          <legend>Review the buyer</legend>
+          {!sellerReviewEnabled ? (
+            <p className="status-text">
+              Buyer review is disabled until the buyer confirms they received
+              this product.
+            </p>
+          ) : null}
+          <div className="field-row">
+            <label className="field-label">
+              Rating
+              <RatingStars
+                rating={rating}
+                label={`Rate this buyer ${rating} out of 5`}
+                interactive={sellerReviewEnabled}
+                onRatingChange={setRating}
+              />
+            </label>
+            <label className="field-label">
+              Review
+              <input
+                value={buyerReviewComment}
+                onChange={(event) => setBuyerReviewComment(event.target.value)}
+              />
+            </label>
+          </div>
+          <button
+            type="button"
+            className="primary-button"
+            disabled={!sellerReviewEnabled || !status.buyerIdForSellerReview}
+            onClick={() =>
+              run(
+                () =>
+                  createBuyerReview({
+                    productId: product.id,
+                    buyerId: status.buyerIdForSellerReview ?? "",
+                    rating,
+                    comment: buyerReviewComment,
+                  }),
+                "Buyer review submitted.",
+              )
+            }
+          >
+            Review buyer
+          </button>
+        </fieldset>
       ) : null}
+
       <FormNotification notification={notification} />
     </section>
   );

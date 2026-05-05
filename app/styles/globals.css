@@ -56,6 +56,22 @@ button:disabled {
   backdrop-filter: blur(14px);
 }
 
+.app-footer {
+  width: min(1200px, 100% - 32px);
+  margin: 0 auto;
+  padding: 24px 0 40px;
+  color: #475569;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.app-footer a {
+  color: #2563eb;
+  font-weight: 700;
+}
+
 .brand-link {
   font-weight: 900;
   color: #0f172a;
@@ -851,12 +867,55 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: 6px;
+  position: relative;
+  width: fit-content;
 }
 
 .rating-stars svg {
   width: 16px;
   height: 16px;
   color: #f59e0b;
+}
+
+.rating-star-visuals {
+  display: flex;
+  gap: 6px;
+}
+
+.rating-star-shell {
+  position: relative;
+  display: inline-flex;
+  color: #94a3b8;
+}
+
+.rating-star-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  overflow: hidden;
+  color: #f59e0b;
+  pointer-events: none;
+}
+
+.rating-hit-grid {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 104px;
+}
+
+.rating-half-button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  min-width: 10px;
+  cursor: pointer;
+}
+
+.rating-half-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @media (max-width: 860px) {
@@ -1035,4 +1094,55 @@ button:disabled {
   background: #e0f2fe;
   color: #075985;
   border: 1px solid #7dd3fc;
+}
+
+.privacy-panel {
+  max-width: 980px;
+}
+
+.support-panel {
+  max-width: 940px;
+}
+
+.privacy-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.privacy-settings-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.privacy-setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  background: #f8fbff;
+}
+
+.privacy-setting-row > span {
+  display: grid;
+  gap: 4px;
+}
+
+.privacy-setting-row span span {
+  color: #475569;
+}
+
+.privacy-setting-row input {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
 }

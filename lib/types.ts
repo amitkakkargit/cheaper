@@ -19,6 +19,7 @@ export interface Product {
   latitude?: number;
   longitude?: number;
   purchases?: Purchase[];
+  sellerMarkedSoldAt?: string | null;
 }
 
 export interface Seller {
@@ -68,4 +69,49 @@ export interface Purchase {
   sellerId: string;
   buyerConfirmedAt?: string | null;
   sellerConfirmedAt?: string | null;
+}
+
+export interface TransactionStatus {
+  productId: string;
+  isSellerOwner: boolean;
+  sellerMarkedSold: boolean;
+  sellerMarkedSoldAt?: string | null;
+  buyerConfirmed: boolean;
+  buyerConfirmedAt?: string | null;
+  buyerIdForSellerReview?: string | null;
+  canMarkSold: boolean;
+  canMarkReceived: boolean;
+  canBuyerReviewSeller: boolean;
+  canBuyerReviewProduct: boolean;
+  canSellerReviewBuyer: boolean;
+  message: string;
+}
+
+export type SupportTicketCategory =
+  | "Login issue"
+  | "Payment issue"
+  | "Product issue"
+  | "Seller issue"
+  | "App bug"
+  | "Account issue"
+  | "Delivery issue"
+  | "Other";
+
+export interface CreateSupportTicketInput {
+  subject: string;
+  description: string;
+  category: SupportTicketCategory;
+  email?: string;
+  source: "web" | "mobile";
+  deviceInfo?: string;
+  appVersion?: string;
+  screenshotUrl?: string;
+  productId?: string;
+}
+
+export interface SupportTicketResponse {
+  id: string;
+  status: string;
+  createdAt: string;
+  message: string;
 }
