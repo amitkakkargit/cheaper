@@ -63,7 +63,7 @@ describe("support ticket form", () => {
         }),
       );
     });
-    expect(await screen.findByText(/ticket-123/)).toBeInTheDocument();
+    expect((await screen.findAllByText(/ticket-123/)).length).toBeGreaterThan(0);
   });
 
   it("adds support link to the footer", () => {

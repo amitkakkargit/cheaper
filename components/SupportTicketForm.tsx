@@ -99,7 +99,7 @@ export default function SupportTicketForm() {
           </div>
         ) : null}
 
-        <form className="marketplace-form" onSubmit={submit}>
+        <form className="marketplace-form" onSubmit={submit} noValidate>
           <label className="field-label">
             Issue title
             <input
