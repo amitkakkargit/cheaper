@@ -896,9 +896,13 @@ button {
   .product-card-content {
     gap: 8px;
   }
-  .product-rating-row,
+  .product-rating-row {
+    gap: 6px;
+  }
+  .product-rating-row .rating-count,
   .seller-subtext {
-    display: none;
+    font-size: 0.82rem;
+    line-height: 1.35;
   }
   .product-card h2 {
     font-size: 1rem;
