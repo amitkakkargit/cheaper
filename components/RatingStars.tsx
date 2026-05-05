@@ -7,7 +7,12 @@ interface RatingStarsProps {
 
 const stars = [1, 2, 3, 4, 5];
 
-export default function RatingStars({ rating, label, interactive = false, onRatingChange }: RatingStarsProps) {
+export default function RatingStars({
+  rating,
+  label,
+  interactive = false,
+  onRatingChange,
+}: RatingStarsProps) {
   if (interactive) {
     return (
       <div className="rating-stars" aria-label={label} role="img">
@@ -17,7 +22,12 @@ export default function RatingStars({ rating, label, interactive = false, onRati
             type="button"
             onClick={() => onRatingChange?.(value)}
             className="interactive-star"
-            style={{ border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+            style={{
+              border: "none",
+              background: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
           >
             <svg
               viewBox="0 0 24 24"

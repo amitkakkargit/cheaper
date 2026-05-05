@@ -19,7 +19,7 @@ describe("RatingStars component", () => {
         label="Interactive rating"
         interactive={true}
         onRatingChange={mockOnRatingChange}
-      />
+      />,
     );
 
     const stars = screen.getAllByRole("button");

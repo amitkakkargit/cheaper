@@ -13,7 +13,9 @@ interface ProductActionsProps {
 export default function ProductActions({ product }: ProductActionsProps) {
   const [notification, setNotification] = useState<NotificationState>(null);
   const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("Bought locally and confirmed in person.");
+  const [comment, setComment] = useState(
+    "Bought locally and confirmed in person.",
+  );
   const [user, setUser] = useState<CurrentUser | null>(null);
 
   useEffect(() => {
@@ -21,7 +23,8 @@ export default function ProductActions({ product }: ProductActionsProps) {
   }, []);
 
   const isSellerOwner = useMemo(
-    () => Boolean(user?.sellers?.some((seller) => seller.id === product.sellerId)),
+    () =>
+      Boolean(user?.sellers?.some((seller) => seller.id === product.sellerId)),
     [product.sellerId, user?.sellers],
   );
 
@@ -41,11 +44,13 @@ export default function ProductActions({ product }: ProductActionsProps) {
     <section className="info-card">
       <h2>Manual handoff</h2>
       <p className="muted-text">
-        Reviews unlock only after the buyer confirms they got the product and the seller confirms it was sold.
+        Reviews unlock only after the buyer confirms they got the product and
+        the seller confirms it was sold.
       </p>
       {!user ? (
         <p className="status-text">
-          Sign in with phone on the home page to confirm handoff or leave reviews.
+          Sign in with phone on the home page to confirm handoff or leave
+          reviews.
         </p>
       ) : null}
       <div className="header-actions">
@@ -98,7 +103,10 @@ export default function ProductActions({ product }: ProductActionsProps) {
             </label>
             <label className="field-label">
               Review
-              <input value={comment} onChange={(event) => setComment(event.target.value)} />
+              <input
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}
+              />
             </label>
           </div>
           <div className="header-actions">
@@ -149,7 +157,8 @@ export default function ProductActions({ product }: ProductActionsProps) {
       ) : null}
       {user && isSellerOwner ? (
         <p className="status-text">
-          Sellers can confirm the sale, but cannot review their own product or seller profile.
+          Sellers can confirm the sale, but cannot review their own product or
+          seller profile.
         </p>
       ) : null}
       <FormNotification notification={notification} />
