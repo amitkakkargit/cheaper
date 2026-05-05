@@ -3,6 +3,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   clearAccessToken,
+  getAccessToken,
+  getCachedCurrentUser,
   getCurrentUser,
   requestEmailOtp,
   requestPhoneOtp,
@@ -16,6 +18,8 @@ import FormNotification, { type NotificationState } from "./FormNotification";
 type LoginMode = "phone" | "email";
 
 export default function AccountMenu() {
+  const cachedUser = getCachedCurrentUser();
+  const hasToken = Boolean(getAccessToken());
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<LoginMode>("phone");
@@ -24,16 +28,25 @@ export default function AccountMenu() {
   const [expiresAt, setExpiresAt] = useState<number | null>(null);
   const [now, setNow] = useState(Date.now());
   const [notification, setNotification] = useState<NotificationState>(null);
-  const [user, setUser] = useState<CurrentUser | null>(null);
-  const [name, setName] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [user, setUser] = useState<CurrentUser | null>(cachedUser);
+  const [isAuthReady, setIsAuthReady] = useState(!hasToken || Boolean(cachedUser));
+  const [name, setName] = useState(cachedUser?.name ?? "");
+  const [avatarUrl, setAvatarUrl] = useState(cachedUser?.avatarUrl ?? "");
 
   useEffect(() => {
+    let isMounted = true;
+
     getCurrentUser().then((currentUser) => {
+      if (!isMounted) return;
       setUser(currentUser);
       setName(currentUser?.name ?? "");
       setAvatarUrl(currentUser?.avatarUrl ?? "");
+      setIsAuthReady(true);
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -77,6 +90,7 @@ export default function AccountMenu() {
   const secondsLeft = expiresAt ? Math.max(0, Math.ceil((expiresAt - now) / 1000)) : 0;
   const avatarText =
     user?.name?.charAt(0) || user?.email?.charAt(0) || user?.phone?.slice(-2) || "?";
+  const accountLabel = user?.name || user?.email || user?.phone || user?.id;
 
   const requestOtp = async () => {
     try {
@@ -218,9 +232,14 @@ export default function AccountMenu() {
     <div className="account-menu" ref={menuRef}>
       <button
         type="button"
-        className={user ? "avatar-icon account-trigger" : "secondary-button account-trigger"}
-        aria-label={user ? "Open account settings" : "Sign in"}
+        className={
+          user || !isAuthReady
+            ? `avatar-icon account-trigger${!isAuthReady ? " account-trigger-pending" : ""}`
+            : "secondary-button account-trigger"
+        }
+        aria-label={user ? "Open account settings" : isAuthReady ? "Sign in" : "Loading account"}
         onClick={() => setIsOpen((open) => !open)}
+        disabled={!isAuthReady && !user}
       >
         {user ? (
           user.avatarUrl ? (
@@ -229,35 +248,40 @@ export default function AccountMenu() {
           ) : (
             <span>{avatarText.toUpperCase()}</span>
           )
+        ) : !isAuthReady ? (
+          <span aria-hidden="true" />
         ) : (
           "Sign in"
         )}
       </button>
 
       {isOpen ? (
-        <div className="account-popover">
-          <div>
-            <h2>{user ? "Profile settings" : "Sign in"}</h2>
-            <p className="muted-text">
-              {user
-                ? "Update your public marketplace profile."
-                : "Login with email or phone OTP. OTP is valid for 60 seconds."}
-            </p>
+        <div className="account-popover" aria-label={user ? "Account menu" : "Sign in menu"}>
+          <div className="account-popover-header">
+            <div>
+              <p className="account-kicker">{user ? "Account" : "Welcome"}</p>
+              <h2>{user ? "Profile settings" : "Sign in"}</h2>
+              <p className="muted-text">
+                {user
+                  ? "Manage your marketplace identity and settings."
+                  : "Login with email or phone OTP. OTP is valid for 60 seconds."}
+              </p>
+            </div>
           </div>
 
           {!user ? (
-            <>
-              <div className="header-actions">
+            <div className="account-auth-panel">
+              <div className="account-segmented" aria-label="Choose login method">
                 <button
                   type="button"
-                  className={`secondary-button ${mode === "phone" ? "active" : ""}`}
+                  className={mode === "phone" ? "active" : ""}
                   onClick={() => setMode("phone")}
                 >
                   Phone
                 </button>
                 <button
                   type="button"
-                  className={`secondary-button ${mode === "email" ? "active" : ""}`}
+                  className={mode === "email" ? "active" : ""}
                   onClick={() => setMode("email")}
                 >
                   Email
@@ -272,7 +296,7 @@ export default function AccountMenu() {
                   aria-label={mode === "phone" ? "Phone" : "Email"}
                 />
               </label>
-              <button type="button" className="secondary-button" onClick={requestOtp}>
+              <button type="button" className="account-compact-button" onClick={requestOtp}>
                 Send OTP
               </button>
               <label className="field-label">
@@ -285,7 +309,7 @@ export default function AccountMenu() {
               </label>
               <button
                 type="button"
-                className="primary-button"
+                className="primary-button account-primary-action"
                 onClick={verifyOtp}
                 disabled={!expiresAt || secondsLeft <= 0}
               >
@@ -296,17 +320,10 @@ export default function AccountMenu() {
                   {secondsLeft > 0 ? `${secondsLeft}s remaining` : "OTP expired"}
                 </p>
               ) : null}
-            </>
+            </div>
           ) : (
             <>
-              <p className="status-text">
-                Signed in as {user.phone || user.email || user.id}
-              </p>
-              <label className="field-label">
-                Name
-                <input value={name} onChange={(event) => setName(event.target.value)} />
-              </label>
-              <div className="avatar-picker">
+              <section className="account-summary-card" aria-label="Signed in account">
                 <div className="avatar-icon avatar-preview" aria-label="Selected avatar preview">
                   {avatarUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -315,30 +332,66 @@ export default function AccountMenu() {
                     <span>{avatarText.toUpperCase()}</span>
                   )}
                 </div>
-                <label className="secondary-button avatar-upload-button">
-                  Select avatar
+                <div>
+                  <h3>{accountLabel}</h3>
+                  <p>{user.email || user.phone || "Marketplace member"}</p>
+                </div>
+              </section>
+
+              <section className="account-section" aria-labelledby="profile-edit-heading">
+                <div className="account-section-heading">
+                  <h3 id="profile-edit-heading">Public profile</h3>
+                  <label className="account-text-link avatar-upload-button">
+                    Change avatar
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={selectAvatar}
+                      aria-label="Select avatar image"
+                    />
+                  </label>
+                </div>
+                <label className="field-label account-field-label">
+                  Display name
                   <input
-                    type="file"
-                    accept="image/*"
-                    onChange={selectAvatar}
-                    aria-label="Select avatar image"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder="Add your name"
                   />
                 </label>
-              </div>
-              <div className="header-actions">
-                <button type="button" className="secondary-button" onClick={saveProfile}>
-                  Save profile
+                <button type="button" className="account-primary-action" onClick={saveProfile}>
+                  Save changes
                 </button>
-                <a className="secondary-button" href="/privacy-settings">
-                  Privacy settings
+              </section>
+
+              <nav className="account-settings-list" aria-label="Account settings">
+                <a
+                  className="account-settings-row"
+                  href="/privacy-settings"
+                  aria-label="Privacy settings"
+                >
+                  <span>
+                    <strong>Privacy settings</strong>
+                    <small>Profile, location, and visibility</small>
+                  </span>
+                  <span aria-hidden="true">›</span>
                 </a>
-                <a className="secondary-button" href="/support">
-                  Help & support
+                <a
+                  className="account-settings-row"
+                  href="/support"
+                  aria-label="Help & support"
+                >
+                  <span>
+                    <strong>Help & support</strong>
+                    <small>Report issues or contact support</small>
+                  </span>
+                  <span aria-hidden="true">›</span>
                 </a>
-                <button type="button" className="secondary-button" onClick={logout}>
-                  Log out
-                </button>
-              </div>
+              </nav>
+
+              <button type="button" className="account-danger-action" onClick={logout}>
+                Log out
+              </button>
             </>
           )}
 

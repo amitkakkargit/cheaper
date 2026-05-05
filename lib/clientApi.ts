@@ -6,6 +6,7 @@ import type {
 } from "@/lib/types";
 
 const TOKEN_KEY = "cheaperAccessToken";
+const USER_CACHE_KEY = "cheaperCurrentUser";
 
 export interface CurrentUser {
   id: string;
@@ -14,6 +15,35 @@ export interface CurrentUser {
   name?: string | null;
   avatarUrl?: string | null;
   sellers?: Array<{ id: string }>;
+}
+
+let cachedCurrentUser: CurrentUser | null = null;
+
+export function getCachedCurrentUser() {
+  if (cachedCurrentUser) return cachedCurrentUser;
+  if (typeof window === "undefined") return null;
+
+  const savedUser = window.localStorage.getItem(USER_CACHE_KEY);
+  if (!savedUser) return null;
+
+  try {
+    cachedCurrentUser = JSON.parse(savedUser) as CurrentUser;
+    return cachedCurrentUser;
+  } catch {
+    window.localStorage.removeItem(USER_CACHE_KEY);
+    return null;
+  }
+}
+
+export function cacheCurrentUser(user: CurrentUser | null) {
+  cachedCurrentUser = user;
+  if (typeof window === "undefined") return;
+
+  if (user) {
+    window.localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
+  } else {
+    window.localStorage.removeItem(USER_CACHE_KEY);
+  }
 }
 
 export function getAccessToken() {
@@ -28,6 +58,7 @@ export function setAccessToken(token: string) {
 export function clearAccessToken() {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(TOKEN_KEY);
+  cacheCurrentUser(null);
 }
 
 export async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
@@ -83,21 +114,27 @@ export async function verifyEmailOtp(email: string, otp: string) {
 
 export async function getCurrentUser() {
   if (!getAccessToken()) {
+    cacheCurrentUser(null);
     return null;
   }
 
   try {
-    return await apiRequest<CurrentUser>("/auth/me");
+    const currentUser = await apiRequest<CurrentUser>("/auth/me");
+    cacheCurrentUser(currentUser);
+    return currentUser;
   } catch {
+    cacheCurrentUser(null);
     return null;
   }
 }
 
 export async function updateProfile(data: { name?: string; avatarUrl?: string }) {
-  return apiRequest<CurrentUser>("/users/me", {
+  const updatedUser = await apiRequest<CurrentUser>("/users/me", {
     method: "PATCH",
     body: JSON.stringify(data),
   });
+  cacheCurrentUser(updatedUser);
+  return updatedUser;
 }
 
 export async function getTransactionStatus(productId: string) {

@@ -1,6 +1,9 @@
 import {
   apiRequest,
+  cacheCurrentUser,
   clearAccessToken,
+  getCachedCurrentUser,
+  getCurrentUser,
   requestPhoneOtp,
   setAccessToken,
   verifyPhoneOtp,
@@ -16,6 +19,7 @@ const jsonResponse = (body: unknown, ok = true, status = 200) =>
 describe("client api helpers", () => {
   beforeEach(() => {
     window.localStorage.clear();
+    cacheCurrentUser(null);
   });
 
   it("adds bearer token to authenticated requests", async () => {
@@ -36,9 +40,11 @@ describe("client api helpers", () => {
 
   it("clears saved access token on logout", () => {
     setAccessToken("token-123");
+    cacheCurrentUser({ id: "user-1", name: "Cached User" });
     clearAccessToken();
 
     expect(window.localStorage.getItem("cheaperAccessToken")).toBeNull();
+    expect(getCachedCurrentUser()).toBeNull();
   });
 
   it("requests and verifies phone OTP login", async () => {
@@ -51,6 +57,23 @@ describe("client api helpers", () => {
     await verifyPhoneOtp("+1555", "123456");
 
     expect(window.localStorage.getItem("cheaperAccessToken")).toBe("jwt-token");
+  });
+
+  it("caches the current user after fetching auth profile", async () => {
+    setAccessToken("token-123");
+    global.fetch = jest.fn(async () =>
+      jsonResponse({ id: "user-1", name: "Fresh User" }),
+    ) as jest.Mock;
+
+    await expect(getCurrentUser()).resolves.toEqual({
+      id: "user-1",
+      name: "Fresh User",
+    });
+
+    expect(getCachedCurrentUser()).toEqual({
+      id: "user-1",
+      name: "Fresh User",
+    });
   });
 
   it("uses current browser host for API calls on mobile or LAN", async () => {

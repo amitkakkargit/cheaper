@@ -5,6 +5,8 @@ import PrivacySettingsPanel from "@/components/PrivacySettingsPanel";
 
 jest.mock("@/lib/clientApi", () => ({
   getCurrentUser: jest.fn(),
+  getCachedCurrentUser: jest.fn(() => null),
+  getAccessToken: jest.fn(() => ""),
   requestEmailOtp: jest.fn(),
   requestPhoneOtp: jest.fn(),
   updateProfile: jest.fn(),
@@ -18,6 +20,8 @@ const clientApi = jest.requireMock("@/lib/clientApi");
 describe("privacy settings", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    clientApi.getCachedCurrentUser.mockReturnValue(null);
+    clientApi.getAccessToken.mockReturnValue("");
   });
 
   it("renders professional privacy settings controls", () => {
@@ -55,6 +59,21 @@ describe("privacy settings", () => {
         "/privacy-settings",
       );
     });
+  });
+
+  it("renders cached account immediately without a sign-in flash", () => {
+    clientApi.getCachedCurrentUser.mockReturnValue({
+      id: "user-1",
+      name: "Test User",
+      sellers: [],
+    });
+    clientApi.getAccessToken.mockReturnValue("cached-token");
+    clientApi.getCurrentUser.mockImplementation(() => new Promise(() => {}));
+
+    render(<AccountMenu />);
+
+    expect(screen.getByRole("button", { name: "Open account settings" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Sign in" })).not.toBeInTheDocument();
   });
 
   it("adds privacy settings link to the footer", () => {

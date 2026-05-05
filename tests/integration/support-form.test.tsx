@@ -7,6 +7,8 @@ import * as clientApi from "@/lib/clientApi";
 jest.mock("@/lib/clientApi", () => ({
   createSupportTicket: jest.fn(),
   getCurrentUser: jest.fn(),
+  getCachedCurrentUser: jest.fn(() => null),
+  getAccessToken: jest.fn(() => ""),
   requestEmailOtp: jest.fn(),
   requestPhoneOtp: jest.fn(),
   updateProfile: jest.fn(),
@@ -18,6 +20,8 @@ jest.mock("@/lib/clientApi", () => ({
 describe("support ticket form", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.mocked(clientApi.getCachedCurrentUser).mockReturnValue(null);
+    jest.mocked(clientApi.getAccessToken).mockReturnValue("");
   });
 
   it("validates required detail before submitting", () => {
