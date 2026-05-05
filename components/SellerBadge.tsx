@@ -12,7 +12,7 @@ export default function SellerBadge({ seller }: SellerBadgeProps) {
       <div className="seller-card-row">
         <img
           src={seller.avatarUrl}
-          alt={seller.name}
+          alt={`${seller.name} seller profile image`}
           className="seller-avatar"
         />
         <div>

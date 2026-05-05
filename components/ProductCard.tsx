@@ -94,7 +94,7 @@ function ProductCard({
       <div className="product-image-wrap">
         <ImageCarousel
           images={images}
-          alt={product.title}
+          alt={`${product.title} for sale by ${product.sellerName} in ${product.location}`}
           onAllImagesFailed={() => setIsVisible(false)}
         />
         {previewVideoUrl && isFocused ? (
