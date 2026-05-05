@@ -1,6 +1,6 @@
 # Cheaper Marketplace MVP
 
-A modern Node.js marketplace web app built with Next.js and TypeScript. This prototype uses hardcoded JSON data to simulate API responses and supports a responsive Instagram-style feed.
+A modern local marketplace web app built with Next.js and TypeScript. Buyers and sellers meet in person, confirm the product handoff manually, and can review only after both sides confirm.
 
 ## Stack
 
@@ -18,7 +18,11 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 - Seller detail page
 - Seller profile creation UI
 - Product posting UI
-- Mock JSON data treated like an API
+- NestJS API integration through `NEXT_PUBLIC_API_BASE_URL`
+- Mock phone sign-in for local development
+- Buyer confirms product received
+- Seller confirms product sold
+- Product and seller reviews after confirmed handoff
 - Modular components, services, and types
 
 ## Setup
@@ -27,11 +31,16 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
    ```bash
    npm install
    ```
-2. Run the development server:
+2. Create `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+3. Start `cheaper-api` on `http://localhost:3001`.
+4. Run the frontend development server:
    ```bash
    npm run dev
    ```
-3. Open `http://localhost:3000`
+5. Open `http://localhost:3000`
 
 ## Test commands
 
@@ -48,16 +57,16 @@ A modern Node.js marketplace web app built with Next.js and TypeScript. This pro
 
 - `app/` - Next.js route definitions and pages
 - `components/` - UI components and layout modules
-- `lib/` - mock API services and shared types
-- `data/` - hardcoded JSON data representing API responses (currently 2,800+ products across all Indian states)
+- `lib/` - backend API services, client API helper, and shared types
+- `data/` - legacy JSON source data migrated into PostgreSQL by `cheaper-api`
 - `tests/` - unit and integration tests
 - `scripts/generate-data.js` - data generator for reproducible mock product and seller sets
 
-## Replacing the mock JSON with real APIs
+## Local flow
 
-1. Replace `lib/api.ts` data imports with fetch calls to your backend endpoints.
-2. Keep the service method signatures (`getAllProducts`, `getProductById`, `searchProducts`, etc.) the same so UI components can stay unchanged.
-3. Add a backend or API route layer as needed, then update the service methods to deserialize the API response.
-4. For client-side filtering or search, move relevant logic into the API service or backend query layer.
-
-This setup is intentionally built so the data layer can be swapped without rewriting the UI.
+1. Sign in from the home page with mock phone auth.
+2. Create a seller profile and keep the returned seller ID.
+3. Post a product using that seller ID.
+4. A buyer signs in and clicks `I got this product`.
+5. The seller signs in and clicks `I sold this product`.
+6. The buyer can submit product and seller reviews.

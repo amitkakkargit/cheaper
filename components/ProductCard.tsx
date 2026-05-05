@@ -25,15 +25,30 @@ function ProductCard({
   const playbackTimerRef = useRef<number | null>(null);
 
   const images = useMemo(
-    () =>
-      product.images && product.images.length
-        ? product.images
-        : [product.imageUrl].filter(Boolean),
+    () => {
+      const safeImages = (product.images ?? []).filter(
+        (image) => image && !image.includes("fakeimg.pl"),
+      );
+
+      if (safeImages.length) {
+        return safeImages;
+      }
+
+      return product.imageUrl && !product.imageUrl.includes("fakeimg.pl")
+        ? [product.imageUrl]
+        : [];
+    },
     [product.imageUrl, product.images],
   );
+  const previewVideoUrl = useMemo(() => {
+    if (!product.videoUrl) return "";
+    if (product.videoUrl.includes("commondatastorage.googleapis.com")) return "";
+
+    return product.videoUrl;
+  }, [product.videoUrl]);
 
   useEffect(() => {
-    if (isFocused && !isScrolling && product.videoUrl && videoRef.current) {
+    if (isFocused && !isScrolling && previewVideoUrl && videoRef.current) {
       const video = videoRef.current;
       video.currentTime = 0;
       video.muted = true;
@@ -64,7 +79,7 @@ function ProductCard({
         window.clearTimeout(playbackTimerRef.current);
       }
     };
-  }, [isFocused, isScrolling, product.videoUrl]);
+  }, [isFocused, isScrolling, previewVideoUrl]);
 
   if (!isVisible || !images.length) {
     return null;
@@ -82,12 +97,12 @@ function ProductCard({
           alt={product.title}
           onAllImagesFailed={() => setIsVisible(false)}
         />
-        {product.videoUrl && isFocused ? (
+        {previewVideoUrl && isFocused ? (
           <>
             <video
               ref={videoRef}
               className={`product-video ${isPlaying ? "visible" : ""}`}
-              src={product.videoUrl}
+              src={previewVideoUrl}
               playsInline
               muted
               loop

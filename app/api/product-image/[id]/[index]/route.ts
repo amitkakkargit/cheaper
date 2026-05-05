@@ -11,7 +11,7 @@ export async function GET(_request: Request, { params }: ProductImageRouteProps)
   const { id, index } = await params;
   const imageIndex = Number(index);
   const svg = Number.isInteger(imageIndex)
-    ? getGeneratedProductImageSvg(id, imageIndex)
+    ? await getGeneratedProductImageSvg(id, imageIndex)
     : null;
 
   if (!svg) {

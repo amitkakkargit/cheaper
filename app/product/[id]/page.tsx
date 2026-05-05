@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  getAllProducts,
   getAllProductRatings,
   getProductById,
   getSellerById,
@@ -9,15 +8,13 @@ import {
 import ImageCarousel from "@/components/ImageCarousel";
 import RatingStars from "@/components/RatingStars";
 import SellerBadge from "@/components/SellerBadge";
+import ProductActions from "@/components/ProductActions";
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
 
-export async function generateStaticParams() {
-  const products = await getAllProducts();
-  return products.map((product) => ({ id: product.id }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { id } = await params;
@@ -74,6 +71,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </div>
       </section>
       <section className="detail-actions">
+        <ProductActions product={product} />
         <div className="info-card">
           <h2>Why this deal matters</h2>
           <p>

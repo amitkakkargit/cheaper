@@ -11,6 +11,8 @@ interface SellerPageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function SellerDetailPage({ params }: SellerPageProps) {
   const { id } = await params;
   const seller = await getSellerById(id);

@@ -2,6 +2,8 @@ import type { ProductWithSeller } from "@/lib/types";
 import { getAllProducts } from "@/lib/api";
 import HomeFeed from "@/components/HomeFeed";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const products = await getAllProducts();
 

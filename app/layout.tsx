@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AccountMenu from "@/components/AccountMenu";
 import "./styles/globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header className="app-header">
+          <a href="/" className="brand-link">
+            Cheaper
+          </a>
+          <AccountMenu />
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
