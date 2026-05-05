@@ -33,6 +33,12 @@ NEXT_PUBLIC_API_BASE_URL="http://localhost:3001"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
 
+To use the deployed Render API instead:
+
+```env
+NEXT_PUBLIC_API_BASE_URL="https://cheaper-api-5oio.onrender.com"
+```
+
 5. Start the frontend on port `3000`:
 
 ```powershell
